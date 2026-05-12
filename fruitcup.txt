@@ -1,0 +1,14 @@
+#==========================
+#	CONFIG v1.1
+#	# - Comments
+#	GD - Godot Engine Executable Path
+#	GODG - Godot Game
+#	SHORTCUT - Directories that'll be searched in
+#	APP - Apps that can be opened
+#==========================
+#	EXAMPLE:
+#	GD C:\Users\Example\Downloads\Godot\Godot.exe
+#	GODG foo C:\Users\Example\Documents\Godot\game
+#	SHORTCUT D:\Downloads
+#	APP notes C:\Windows\notepad.exe
+#==========================
