@@ -1,3 +1,4 @@
+```
 fruitcupcli
 a dumb quick cli made in C++
 
