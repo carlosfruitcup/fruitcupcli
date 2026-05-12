@@ -2,7 +2,7 @@
 fruitcupcli
 a dumb quick cli made in C++
 
-[under the MIT license](LICENSE)
+under the MIT license
 
 ========================================================
 why:
