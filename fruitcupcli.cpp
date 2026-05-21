@@ -13,7 +13,8 @@ map<string, function<void()>> cmds = {
 	{"list",list},
 	{"config",config},
 	{"config-reload",loadData},
-	{".",application}
+	{".",application},
+	{"download-playlist",ytdlp}
 };
 
 void commandParse(string unparsed_command) {
@@ -80,6 +81,7 @@ void loadData() {
 
 		//switch cases dont work on strings
 		if (first_key == "GD") GODOT_PATH = config_line_data[1];
+		if (first_key == "YTDLP") YTDLP_PATH = config_line_data[1];
 		if (first_key == "SHORTCUT") STEAM_GAMES_FOLDER_PATHS.push_back(config_line_data[1]);
 		if (first_key == "GODG") {
 			if (config_line_data.size() < 3) {

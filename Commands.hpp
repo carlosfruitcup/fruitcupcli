@@ -11,7 +11,10 @@ map<string, string> GODOT_GAMES_PATHS = {};
 vector<string> STEAM_GAMES_FOLDER_PATHS = {};
 map<string, string> APP_PATHS = {};
 
+string YTDLP_PATH = "";
+
 string CONFIG_PATH = "";
+
 
 //UTILS
 void printError(string toPrint) {
@@ -254,6 +257,27 @@ void config() {
 	openDirInExplorer(CONFIG_PATH.c_str());
 }
 
+void ytdlp() {
+	if (YTDLP_PATH == "") {
+		printError("YTDLP Executable wasn't provided!");
+		return;
+	}
+
+	if (arguments.size() < 2) {
+		printError("You're missing a few arguments.");
+		return;
+	}
+
+	string cmd = "C:/WINDOWS/system32/cmd.exe";
+	string dir = arguments[0];
+	string playlist_url = arguments[1];
+	string args = "/c start "  + YTDLP_PATH + " -f 'bestaudio' --download-archive archive.txt -x --audio-format mp3 --embed-metadata -t sleep ";
+	args += "-o " + dir;
+
+	beginApplication((const char*)cmd.c_str(), (char*)args.c_str());
+
+}
+
 void godot() {
 	if (GODOT_PATH == "") {
 		printError("Godot Executable wasn't provided!");
@@ -263,7 +287,7 @@ void godot() {
 	if (arguments.size() > 0){
 		if (GODOT_GAMES_PATHS.find(arguments.front()) != GODOT_GAMES_PATHS.end()) {
 			string the_path = GODOT_GAMES_PATHS[arguments.front()];
-				char last_char = the_path[the_path.length()];
+			char last_char = the_path[the_path.length()];
 			if (last_char == ' ') {
 				the_path = the_path.substr(0, the_path.length() - 1);
 			}
