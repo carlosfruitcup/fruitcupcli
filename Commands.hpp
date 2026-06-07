@@ -2,6 +2,8 @@
 
 #include "Includes.hpp"
 
+const string cmd = "C:/WINDOWS/system32/cmd.exe";
+
 //i am too lazy to come up with some smart way to call a function with arguments
 //so they're now global, but at the beginning of commandParse, it clears it before calling
 vector<string> arguments = {};
@@ -10,8 +12,6 @@ string GODOT_PATH = "";
 map<string, string> GODOT_GAMES_PATHS = {};
 vector<string> STEAM_GAMES_FOLDER_PATHS = {};
 map<string, string> APP_PATHS = {};
-
-string YTDLP_PATH = "";
 
 string CONFIG_PATH = "";
 
@@ -257,27 +257,6 @@ void config() {
 	openDirInExplorer(CONFIG_PATH.c_str());
 }
 
-void ytdlp() {
-	if (YTDLP_PATH == "") {
-		printError("YTDLP Executable wasn't provided!");
-		return;
-	}
-
-	if (arguments.size() < 2) {
-		printError("You're missing a few arguments.");
-		return;
-	}
-
-	string cmd = "C:/WINDOWS/system32/cmd.exe";
-	string dir = arguments[0];
-	string playlist_url = arguments[1];
-	string args = "/c start "  + YTDLP_PATH + " -f 'bestaudio' --download-archive archive.txt -x --audio-format mp3 --embed-metadata -t sleep ";
-	args += "-o " + dir;
-
-	beginApplication((const char*)cmd.c_str(), (char*)args.c_str());
-
-}
-
 void godot() {
 	if (GODOT_PATH == "") {
 		printError("Godot Executable wasn't provided!");
@@ -310,8 +289,7 @@ void godot() {
 	else {
 		//yes we have to specify cmd, i guess CreateProcessA just isn't global or has access to windows apps normally
 		//also we're doing this because godot is aggressive as fuck with grabbing the cli as an output and nothing
-		//else worked. another dumbass decision by godot, love them, but bro.
-		string cmd = "C:/WINDOWS/system32/cmd.exe";
+		//else worked. another dumbass decision by godot, love them, but bro
 		string final_arg = "/c start " + GODOT_PATH + " " + (arguments.size() > 0 ? arguments[0] : "");
 
 		beginApplication(cmd.c_str(), (char*)final_arg.c_str());

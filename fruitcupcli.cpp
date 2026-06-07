@@ -14,7 +14,6 @@ map<string, function<void()>> cmds = {
 	{"config",config},
 	{"config-reload",loadData},
 	{".",application},
-	{"download-playlist",ytdlp}
 };
 
 void commandParse(string unparsed_command) {
@@ -81,7 +80,6 @@ void loadData() {
 
 		//switch cases dont work on strings
 		if (first_key == "GD") GODOT_PATH = config_line_data[1];
-		if (first_key == "YTDLP") YTDLP_PATH = config_line_data[1];
 		if (first_key == "SHORTCUT") STEAM_GAMES_FOLDER_PATHS.push_back(config_line_data[1]);
 		if (first_key == "GODG") {
 			if (config_line_data.size() < 3) {
@@ -98,7 +96,14 @@ void loadData() {
 				continue;
 			}
 
-			APP_PATHS[config_line_data[1]] = config_line_data[2];
+			APP_PATHS[config_line_data[1]] = "";
+			
+			//cause stringstream divides up the path by spaces, 
+			//so this is a dumb fix till i can be bothered to come up with something better.
+			for (int idx = 0; idx < config_line_data.size(); idx++) {
+				if (idx < 2) continue; //because 0 is the key and 1 is the name of the program
+				APP_PATHS[config_line_data[1]] += config_line_data[idx] + " ";
+			}
 			
 		}
 
